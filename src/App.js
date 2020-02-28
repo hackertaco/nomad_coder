@@ -1,23 +1,32 @@
 import React, { Component } from "react";
-import styled, { createGlobalStyle, css, keyframes } from "styled-components";
-
+import styled, {
+  createGlobalStyle,
+  css,
+  ThemeProvider
+} from "styled-components";
+import theme from "./theme";
 const GlobalStyle = createGlobalStyle`
 body{
   padding: 0;
   margin: 0;
 }`;
+const Card = styled.div`
+  background-color: red;
+`;
+const Button = styled.button`
+  border-radius: 50%;
+  background-color: ${props => props.theme.successColor};
+`;
 
 function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Container>
-        <Button success />
-        <Button danger />
-        <Button href="https://google.com" as="a">
-          go to google
-        </Button>
-      </Container>
+      <ThemeProvider theme={theme}>
+        <Container>
+          <Form />
+        </Container>
+      </ThemeProvider>
     </React.Fragment>
   );
 }
@@ -25,36 +34,11 @@ const Container = styled.div`
   height: 100vh;
   width: 100%;
   background-color: #bdc3c7;
-  a {
-    text-decoration: none;
-  }
 `;
-const Button = styled.button`
-  border-radius: 50px;
-  padding: 5px;
-  min-width: 120px;
-  color: white;
-  font-weight: 600;
-  -webkit-appearance: none;
-  cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
-  }
-  background-color: ${props => (props.danger ? "#9b3c31" : "#2ecc71")};
-  ${props => {
-    if (props.danger) {
-      return css`
-        animation: ${Rotation} 2s linear infinite;
-      `;
-    }
-  }}
-`;
-const Rotation = keyframes`
-from{
-  transform : rotate(0deg)
-}
-to{
-  transform : rotate(360deg)
-}`;
+const Form = () => (
+  <Card>
+    <Button>hello</Button>
+  </Card>
+);
+
 export default App;
